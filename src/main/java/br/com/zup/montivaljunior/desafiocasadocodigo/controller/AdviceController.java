@@ -23,4 +23,10 @@ public class AdviceController {
                 .collect(Collectors.toList());
         return new ErroApi(erros);
     }
+
+    @ExceptionHandler(IllegalStateException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErroApi handleIllegalStateException(IllegalStateException e) {
+        return new ErroApi(e.getMessage());
+    }
 }

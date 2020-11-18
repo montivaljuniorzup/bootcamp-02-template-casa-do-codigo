@@ -1,6 +1,7 @@
 package br.com.zup.montivaljunior.desafiocasadocodigo.dto.request;
 
 import br.com.zup.montivaljunior.desafiocasadocodigo.model.Autor;
+import br.com.zup.montivaljunior.desafiocasadocodigo.validation.UniqueValue;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -15,6 +16,7 @@ public class NovoAutorRequest {
 
     @Email(message = "{autor.email.invalido}")
     @NotBlank(message = "{autor.email.obrigatorio}")
+    @UniqueValue(classe = Autor.class, atributo = "email")
     private String email;
 
     @NotBlank(message = "{autor.descricao.obrigatorio}")

@@ -2,10 +2,7 @@ package br.com.zup.montivaljunior.desafiocasadocodigo.model;
 
 import br.com.zup.montivaljunior.desafiocasadocodigo.dto.response.AutorResponse;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -20,24 +17,28 @@ public class Autor {
     private Long id;
 
     @NotBlank
+    @Column(nullable = false)
     private String nome;
 
     @Email
     @NotBlank
+    @Column(nullable = false, unique = true)
     private String email;
 
     @NotBlank
-    @Size(min = 400)
+    @Size(max = 400)
+    @Column(nullable = false)
     private String descricao;
 
     @NotNull
+    @Column(nullable = false)
     private LocalDateTime instanteCriacao;
 
     @Deprecated
     public Autor() {
     }
 
-    public Autor(@NotBlank String nome, @Email @NotBlank String email, @NotBlank @Size(min = 400) String descricao, @NotNull LocalDateTime instanteCriacao) {
+    public Autor(@NotBlank String nome, @Email @NotBlank String email, @NotBlank @Size(max = 400) String descricao, @NotNull LocalDateTime instanteCriacao) {
         this.nome = nome;
         this.email = email;
         this.descricao = descricao;
