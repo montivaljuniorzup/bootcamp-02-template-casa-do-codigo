@@ -36,4 +36,13 @@ public class AdviceController {
     public ErroApi handleIllegalStateException(IllegalStateException e) {
         return new ErroApi(e.getMessage());
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErroApi handleIllegalArgumentException(IllegalArgumentException e) {
+        return new ErroApi(e.getMessage());
+    }
+
+
 }
+

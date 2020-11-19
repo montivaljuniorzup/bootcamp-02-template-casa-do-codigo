@@ -51,7 +51,7 @@ public class Autor {
     }
 
     public AutorResponse paraResponse() {
-        return new AutorResponse(this.nome, this.email, this.descricao, this.instanteCriacao);
+        return new AutorResponse(this.nome, this.descricao);
     }
 
     @Override

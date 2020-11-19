@@ -1,6 +1,5 @@
 package br.com.zup.montivaljunior.desafiocasadocodigo.model;
 
-import br.com.zup.montivaljunior.desafiocasadocodigo.dto.response.LivroDadosCompletosResponse;
 import br.com.zup.montivaljunior.desafiocasadocodigo.dto.response.LivroDadosMinimosResponse;
 
 import javax.persistence.*;
@@ -80,18 +79,6 @@ public class Livro {
         this.autor = autor;
     }
 
-    public LivroDadosCompletosResponse paraLivroDadosCompletosResponse() {
-        return new LivroDadosCompletosResponse(this.titulo,
-                this.resumo,
-        this.sumario,
-        this.preco,
-        this.numeroDePaginas,
-        this.isbn,
-        this.dataLancamento,
-        this.categoria.paraResponse(),
-        this.autor.paraResponse());
-    }
-
     public LivroDadosMinimosResponse paraLivroDadosMinimosResponse(){
         return new LivroDadosMinimosResponse(this.id, this.titulo);
     }
@@ -110,6 +97,42 @@ public class Livro {
     @Override
     public int hashCode() {
         return Objects.hash(titulo, isbn, autor);
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getResumo() {
+        return resumo;
+    }
+
+    public String getSumario() {
+        return sumario;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public int getNumeroDePaginas() {
+        return numeroDePaginas;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public LocalDate getDataLancamento() {
+        return dataLancamento;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public Autor getAutor() {
+        return autor;
     }
 }
 

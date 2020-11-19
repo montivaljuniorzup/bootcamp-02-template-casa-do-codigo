@@ -1,28 +1,37 @@
 package br.com.zup.montivaljunior.desafiocasadocodigo.dto.response;
 
-import javax.validation.constraints.*;
-import java.math.BigDecimal;
-import java.time.LocalDate;
+import br.com.zup.montivaljunior.desafiocasadocodigo.model.Livro;
 
-public class LivroDadosCompletosResponse {
+import javax.validation.constraints.*;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.format.DateTimeFormatter;
+
+public class LivroDadosCompletosResponse implements Serializable {
+
     @NotBlank
-   private String titulo;
-    @NotBlank @Size(max = 500)
+    private String titulo;
+
+    @NotBlank
+    @Size(max = 500)
     private String resumo;
 
     private String sumario;
 
-    @NotNull @Min(20)
+    @NotNull
+    @Min(20)
     private BigDecimal preco;
 
-    @NotNull @Min(100)
+    @NotNull
+    @Min(100)
     private int numeroDePaginas;
 
     @NotBlank
     private String isbn;
 
-    @Future @NotNull
-    private LocalDate dataLancamento;
+    @Future
+    @NotNull
+    private String dataLancamento;
 
     private CategoriaResponse categoria;
 
@@ -32,25 +41,16 @@ public class LivroDadosCompletosResponse {
     public LivroDadosCompletosResponse() {
     }
 
-    public LivroDadosCompletosResponse(@NotBlank String titulo,
-                                       @NotBlank @Size(max = 500)
-                                 String resumo,
-                                       String sumario,
-                                       @NotNull @Min(20) BigDecimal preco,
-                                       @NotNull @Min(100) int numeroDePaginas,
-                                       @NotBlank String isbn,
-                                       @Future @NotNull LocalDate dataLancamento,
-                                       CategoriaResponse categoria,
-                                       AutorResponse autor) {
-        this.titulo = titulo;
-        this.resumo = resumo;
-        this.sumario = sumario;
-        this.preco = preco;
-        this.numeroDePaginas = numeroDePaginas;
-        this.isbn = isbn;
-        this.dataLancamento = dataLancamento;
-        this.categoria = categoria;
-        this.autor = autor;
+    public LivroDadosCompletosResponse(Livro livro) {
+        this.titulo = livro.getTitulo();
+        this.resumo = livro.getResumo();
+        this.sumario = livro.getSumario();
+        this.preco = livro.getPreco();
+        this.numeroDePaginas = livro.getNumeroDePaginas();
+        this.isbn = livro.getIsbn();
+        this.dataLancamento = livro.getDataLancamento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        this.categoria = livro.getCategoria().paraResponse();
+        this.autor = livro.getAutor().paraResponse();
     }
 
     public String getTitulo() {
@@ -77,7 +77,7 @@ public class LivroDadosCompletosResponse {
         return isbn;
     }
 
-    public LocalDate getDataLancamento() {
+    public String getDataLancamento() {
         return dataLancamento;
     }
 
