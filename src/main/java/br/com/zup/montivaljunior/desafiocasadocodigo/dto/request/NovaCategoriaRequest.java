@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class NovaCategoriaRequest implements Serializable {
 
-    @NotBlank
+    @NotBlank(message = "{catgoria.nome.obrigatorio}")
     @UniqueValue(classe = Categoria.class, atributo = "nome")
     private String nome;
 

@@ -2,6 +2,7 @@ package br.com.zup.montivaljunior.desafiocasadocodigo.controller;
 
 import br.com.zup.montivaljunior.desafiocasadocodigo.exceptions.ErroApi;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -22,6 +23,12 @@ public class AdviceController {
                 .map(err -> err.getDefaultMessage())
                 .collect(Collectors.toList());
         return new ErroApi(erros);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErroApi handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
+        return new ErroApi(e.getMessage());
     }
 
     @ExceptionHandler(IllegalStateException.class)

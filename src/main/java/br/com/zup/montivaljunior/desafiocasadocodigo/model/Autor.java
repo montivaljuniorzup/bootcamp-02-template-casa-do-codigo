@@ -8,6 +8,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Autor {
@@ -34,6 +36,9 @@ public class Autor {
     @Column(nullable = false)
     private LocalDateTime instanteCriacao;
 
+    @OneToMany(mappedBy = "autor")
+    private List<Livro> livros;
+
     @Deprecated
     public Autor() {
     }
@@ -47,5 +52,19 @@ public class Autor {
 
     public AutorResponse paraResponse() {
         return new AutorResponse(this.nome, this.email, this.descricao, this.instanteCriacao);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Autor autor = (Autor) o;
+        return nome.equals(autor.nome) &&
+                email.equals(autor.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome, email);
     }
 }
