@@ -1,6 +1,7 @@
 package br.com.zup.montivaljunior.desafiocasadocodigo.model;
 
-import br.com.zup.montivaljunior.desafiocasadocodigo.dto.response.LivroResponse;
+import br.com.zup.montivaljunior.desafiocasadocodigo.dto.response.LivroDadosCompletosResponse;
+import br.com.zup.montivaljunior.desafiocasadocodigo.dto.response.LivroDadosMinimosResponse;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -79,8 +80,8 @@ public class Livro {
         this.autor = autor;
     }
 
-    public LivroResponse paraResponse() {
-        return new LivroResponse(this.titulo,
+    public LivroDadosCompletosResponse paraLivroDadosCompletosResponse() {
+        return new LivroDadosCompletosResponse(this.titulo,
                 this.resumo,
         this.sumario,
         this.preco,
@@ -90,6 +91,11 @@ public class Livro {
         this.categoria.paraResponse(),
         this.autor.paraResponse());
     }
+
+    public LivroDadosMinimosResponse paraLivroDadosMinimosResponse(){
+        return new LivroDadosMinimosResponse(this.id, this.titulo);
+    }
+
 
     @Override
     public boolean equals(Object o) {

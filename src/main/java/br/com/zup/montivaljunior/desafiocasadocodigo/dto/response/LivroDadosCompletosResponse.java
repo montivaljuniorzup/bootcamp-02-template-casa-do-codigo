@@ -4,7 +4,7 @@ import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class LivroResponse {
+public class LivroDadosCompletosResponse {
     @NotBlank
    private String titulo;
     @NotBlank @Size(max = 500)
@@ -29,19 +29,19 @@ public class LivroResponse {
     private AutorResponse autor;
 
     @Deprecated
-    public LivroResponse() {
+    public LivroDadosCompletosResponse() {
     }
 
-    public LivroResponse(@NotBlank String titulo,
-                         @NotBlank @Size(max = 500)
+    public LivroDadosCompletosResponse(@NotBlank String titulo,
+                                       @NotBlank @Size(max = 500)
                                  String resumo,
-                         String sumario,
-                         @NotNull @Min(20) BigDecimal preco,
-                         @NotNull @Min(100) int numeroDePaginas,
-                         @NotBlank String isbn,
-                         @Future @NotNull LocalDate dataLancamento,
-                         CategoriaResponse categoria,
-                         AutorResponse autor) {
+                                       String sumario,
+                                       @NotNull @Min(20) BigDecimal preco,
+                                       @NotNull @Min(100) int numeroDePaginas,
+                                       @NotBlank String isbn,
+                                       @Future @NotNull LocalDate dataLancamento,
+                                       CategoriaResponse categoria,
+                                       AutorResponse autor) {
         this.titulo = titulo;
         this.resumo = resumo;
         this.sumario = sumario;
