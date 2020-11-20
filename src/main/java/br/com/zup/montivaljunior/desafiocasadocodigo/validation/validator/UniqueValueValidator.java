@@ -29,6 +29,9 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Ob
 
     @Override
     public boolean isValid(Object object, ConstraintValidatorContext constraintValidatorContext) {
+        Assert.state(manager != null, "Será que você colocou essa annotation @UniqueValue numa classe anotada com @Entity? Se colocou não vai funcionar." +
+                " Ela só irá conseguir injetar o EntityManager, se estiver no contexto do Spring. Tente colocar no Objeto de Request");
+
         Query query = manager.createQuery("Select 1 from " + classe.getSimpleName() + " where " + atributo + "=:object");
         query.setParameter("object", object);
         List<Object> resultadoEncontrado = query.getResultList();
