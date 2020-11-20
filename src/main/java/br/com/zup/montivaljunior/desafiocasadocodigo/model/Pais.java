@@ -32,4 +32,12 @@ public class Pais {
         this.nome = nome;
         this.estados = estados;
     }
+
+    public boolean temEstado() {
+        return !this.estados.isEmpty();
+    }
+
+    public String getNome() {
+        return nome;
+    }
 }

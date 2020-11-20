@@ -30,4 +30,10 @@ public class Estado {
         this.nome = nome;
         this.pais = pais;
     }
+
+    public String getNome() {
+        return this.nome;
+    }
+
+
 }
