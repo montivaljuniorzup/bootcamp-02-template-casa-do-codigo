@@ -27,7 +27,6 @@ public class NovoPaisRequest implements Serializable {
         return new Pais(this.nome);
     }
 
-
     public String getNome() {
         return nome;
     }

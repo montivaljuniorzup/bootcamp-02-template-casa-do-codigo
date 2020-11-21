@@ -37,6 +37,9 @@ public class LivroDadosCompletosResponse implements Serializable {
 
     private AutorResponse autor;
 
+    /**
+     * @Deprecated
+     */
     @Deprecated
     public LivroDadosCompletosResponse() {
     }

@@ -32,18 +32,18 @@ public class BuscaLivroController {
     //2
     @GetMapping
     @Transactional
-    public ResponseEntity buscaLivros(){
+    public ResponseEntity buscaLivros() {
         List<Livro> livros = manager.createQuery("Select u from Livro u").getResultList();
-        List<LivroDadosMinimosResponse> livrosResponse = livros.stream().map(l -> l.paraLivroDadosMinimosResponse()).collect(Collectors.toList());
+        List<LivroDadosMinimosResponse> livrosResponse = livros.stream().map(l -> new LivroDadosMinimosResponse(l)).collect(Collectors.toList());
         return ResponseEntity.ok(livrosResponse);
     }
 
     //2
     @GetMapping("/{id}")
     @Transactional
-    public ResponseEntity<?> buscaLivroPeloId(@PathVariable("id") Long id){
+    public ResponseEntity<?> buscaLivroPeloId(@PathVariable("id") Long id) {
         Livro livro = manager.find(Livro.class, id);
-        if(livro == null){
+        if (livro == null) {
             return new ResponseEntity<ErroApi>(new ErroApi("Não foi encontrado Livro com esse Id: " + id), HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(new LivroDadosCompletosResponse(livro));

@@ -1,14 +1,15 @@
 package br.com.zup.montivaljunior.desafiocasadocodigo.dto.response;
 
-import br.com.zup.montivaljunior.desafiocasadocodigo.model.Cliente;
+import br.com.zup.montivaljunior.desafiocasadocodigo.model.Compra;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import javax.persistence.EntityManager;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-public class ClienteResponse implements Serializable {
+public class CompraResponse implements Serializable {
 
     @NotBlank
     @Email
@@ -44,42 +45,46 @@ public class ClienteResponse implements Serializable {
     @NotBlank
     private String cep;
 
+    private CarrinhoCompraResponse carrinhoCompra;
+
     /**
      * @Deprecated
      */
     @Deprecated
-    public ClienteResponse() {
+    public CompraResponse() {
     }
 
-    public ClienteResponse(Cliente cliente) {
-        this.email = cliente.getEmail();
-        this.nome = cliente.getNome();
-        this.sobrenome = cliente.getSobrenome();
-        this.documento = cliente.getDocumento();
-        this.endereco = cliente.getEndereco();
-        this.complemento = cliente.getComplemento();
-        this.cidade = cliente.getCidade();
-        this.pais = new PaisResponse(cliente.getPais());
+    public CompraResponse(Compra compra, EntityManager manager) {
+        this.email = compra.getEmail();
+        this.nome = compra.getNome();
+        this.sobrenome = compra.getSobrenome();
+        this.documento = compra.getDocumento();
+        this.endereco = compra.getEndereco();
+        this.complemento = compra.getComplemento();
+        this.cidade = compra.getCidade();
+        this.pais = new PaisResponse(compra.getPais());
 
-        this.estado = new EstadoResponse(cliente.getEstado());
-        if( !this.estado.possuiNomeCadastrado()) {
+        this.estado = new EstadoResponse(compra.getEstado());
+        if (!this.estado.possuiNomeCadastrado()) {
             this.estado = null;
         }
 
-        this.telefone = cliente.getTelefone();
-        this.cep = cliente.getCep();
+        this.telefone = compra.getTelefone();
+        this.cep = compra.getCep();
+        this.carrinhoCompra = new CarrinhoCompraResponse(manager, compra.getItens());
     }
-    public ClienteResponse(@NotBlank @Email String email,
-                           @NotBlank String nome,
-                           @NotBlank String sobrenome,
-                           @NotBlank String documento,
-                           @NotBlank String endereco,
-                           @NotBlank String complemento,
-                           @NotBlank String cidade,
-                           @NotNull PaisResponse pais,
-                           EstadoResponse estado,
-                           @NotBlank String telefone,
-                           @NotBlank String cep) {
+
+    public CompraResponse(@NotBlank @Email String email,
+                          @NotBlank String nome,
+                          @NotBlank String sobrenome,
+                          @NotBlank String documento,
+                          @NotBlank String endereco,
+                          @NotBlank String complemento,
+                          @NotBlank String cidade,
+                          @NotNull PaisResponse pais,
+                          EstadoResponse estado,
+                          @NotBlank String telefone,
+                          @NotBlank String cep) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -135,5 +140,9 @@ public class ClienteResponse implements Serializable {
 
     public String getCep() {
         return cep;
+    }
+
+    public CarrinhoCompraResponse getCarrinhoCompra() {
+        return carrinhoCompra;
     }
 }

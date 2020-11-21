@@ -3,8 +3,10 @@ package br.com.zup.montivaljunior.desafiocasadocodigo.model;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.Objects;
 
-public class Cliente {
+public class Compra {
 
     @NotBlank
     @Email
@@ -39,14 +41,16 @@ public class Cliente {
     @NotBlank
     private String cep;
 
+    private List<Item> itens;
+
     /**
      * @Deprecated
      */
     @Deprecated
-    public Cliente() {
+    public Compra() {
     }
 
-    public Cliente(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Pais pais, Estado estado, @NotBlank String telefone, @NotBlank String cep) {
+    public Compra(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Pais pais, Estado estado, @NotBlank String telefone, @NotBlank String cep, List<Item> itens) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -58,6 +62,7 @@ public class Cliente {
         this.estado = estado;
         this.telefone = telefone;
         this.cep = cep;
+        this.itens = itens;
     }
 
     public String getEmail() {
@@ -102,5 +107,24 @@ public class Cliente {
 
     public String getCep() {
         return cep;
+    }
+
+    public List<Item> getItens() {
+        return itens;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Compra compra = (Compra) o;
+        return email.equals(compra.email) &&
+                documento.equals(compra.documento) &&
+                itens.equals(compra.itens);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email, documento, itens);
     }
 }

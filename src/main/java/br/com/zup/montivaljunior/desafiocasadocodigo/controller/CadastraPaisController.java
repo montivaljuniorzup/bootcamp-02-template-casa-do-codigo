@@ -26,7 +26,7 @@ public class CadastraPaisController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity criaNovoPais(@RequestBody @Valid NovoPaisRequest request){
+    public ResponseEntity criaNovoPais(@RequestBody @Valid NovoPaisRequest request) {
         manager.persist(request.toModel());
         return new ResponseEntity(HttpStatus.OK);
     }

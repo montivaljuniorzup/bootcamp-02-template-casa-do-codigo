@@ -20,12 +20,10 @@ public class EstadoResponse implements Serializable {
     }
 
     public EstadoResponse(Estado estado) {
-        if(estado != null) {
+        if (estado != null) {
             this.nome = estado.getNome();
         }
     }
-
-
 
     public String getNome() {
         return nome;

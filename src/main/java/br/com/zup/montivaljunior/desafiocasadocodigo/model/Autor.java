@@ -1,7 +1,6 @@
 package br.com.zup.montivaljunior.desafiocasadocodigo.model;
 
 import br.com.zup.montivaljunior.desafiocasadocodigo.dto.response.AutorResponse;
-import br.com.zup.montivaljunior.desafiocasadocodigo.validation.UniqueValue;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -26,7 +25,6 @@ public class Autor {
     @Email
     @NotBlank
     @Column(nullable = false, unique = true)
-    @UniqueValue(classe = Autor.class, atributo = "email")
     private String email;
 
     @NotBlank

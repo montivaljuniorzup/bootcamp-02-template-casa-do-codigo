@@ -1,7 +1,9 @@
-package br.com.zup.montivaljunior.desafiocasadocodigo.dto.request;
+package br.com.zup.montivaljunior.desafiocasadocodigo.controller;
 
-import br.com.zup.montivaljunior.desafiocasadocodigo.dto.response.ClienteResponse;
-import br.com.zup.montivaljunior.desafiocasadocodigo.model.Cliente;
+import br.com.zup.montivaljunior.desafiocasadocodigo.dto.request.NovaCompraRequest;
+import br.com.zup.montivaljunior.desafiocasadocodigo.dto.response.CompraResponse;
+import br.com.zup.montivaljunior.desafiocasadocodigo.model.Compra;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,8 +28,8 @@ public class CadastroCompraController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity criaNovaCompra(@RequestBody @Valid NovoClienteRequest cliente) {
-        Cliente cli = cliente.toModel(manager);
-        return ResponseEntity.ok(new ClienteResponse(cli));
+    public ResponseEntity criaNovaCompra(@RequestBody @Valid NovaCompraRequest cliente) {
+        Compra cli = cliente.toModel(manager);
+        return new ResponseEntity(new CompraResponse(cli, manager), HttpStatus.CREATED);
     }
 }

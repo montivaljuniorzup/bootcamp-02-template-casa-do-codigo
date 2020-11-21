@@ -36,6 +36,6 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Ob
         query.setParameter("object", object);
         List<Object> resultadoEncontrado = query.getResultList();
         Assert.state(resultadoEncontrado.isEmpty(), "Ja existe um(a) " + classe.getSimpleName() + " com esse " + atributo + " registrado");
-        return true;
+        return resultadoEncontrado.isEmpty();
     }
 }

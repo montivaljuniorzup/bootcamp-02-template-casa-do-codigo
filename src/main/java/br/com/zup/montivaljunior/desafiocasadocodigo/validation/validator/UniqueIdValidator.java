@@ -1,6 +1,6 @@
 package br.com.zup.montivaljunior.desafiocasadocodigo.validation.validator;
 
-import br.com.zup.montivaljunior.desafiocasadocodigo.validation.ExistId;
+import br.com.zup.montivaljunior.desafiocasadocodigo.validation.UniqueId;
 import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
@@ -9,7 +9,7 @@ import javax.persistence.Query;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class ExistIdValidator implements ConstraintValidator<ExistId, Object> {
+public class UniqueIdValidator implements ConstraintValidator<UniqueId, Object> {
 
     private Class<?> aClass;
 
@@ -18,25 +18,21 @@ public class ExistIdValidator implements ConstraintValidator<ExistId, Object> {
     @PersistenceContext
     private EntityManager manager;
 
-    public ExistIdValidator(EntityManager manager) {
+    public UniqueIdValidator(EntityManager manager) {
         this.manager = manager;
     }
 
     @Override
-    public void initialize(ExistId constraintAnnotation) {
+    public void initialize(UniqueId constraintAnnotation) {
         this.aClass = constraintAnnotation.classe();
         this.field = constraintAnnotation.atributo();
     }
 
     @Override
     public boolean isValid(Object o, ConstraintValidatorContext constraintValidatorContext) {
-        if (o == null) {
-            return true;
-        }
-
         Query query = manager.createQuery("Select x from " + aClass.getName() + " x where " + field + "=" + o);
-        boolean isEmpty = query.getResultList().isEmpty();
-        Assert.state(!isEmpty, "Não foi encontrado um(a) " + aClass.getSimpleName() + " com o " + field + " igual a " + o);
-        return !isEmpty;
+        boolean isEmpty = query.getResultList().isEmpty(); //se n tem no banco é true
+        Assert.state(!isEmpty, "Já existe um(a) " + aClass.getSimpleName() +" com o " + field + " igual a " + o );
+        return isEmpty; //se tem no banco é true
     }
 }

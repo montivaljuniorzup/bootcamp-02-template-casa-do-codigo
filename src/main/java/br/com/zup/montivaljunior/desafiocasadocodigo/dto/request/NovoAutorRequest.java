@@ -26,6 +26,9 @@ public class NovoAutorRequest {
     @NotNull(message = "{autor.nome.obrigatorio}")
     private LocalDateTime instanteCriacao = LocalDateTime.now();
 
+    /**
+     * @Deprecated
+     */
     @Deprecated
     public NovoAutorRequest() {
     }

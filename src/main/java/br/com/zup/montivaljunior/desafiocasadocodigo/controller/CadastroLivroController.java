@@ -29,7 +29,7 @@ public class CadastroLivroController {
     //2
     @PostMapping
     @Transactional
-    public ResponseEntity criaNovoLivro(@Valid @RequestBody NovoLivroRequest livroRequest){
+    public ResponseEntity criaNovoLivro(@Valid @RequestBody NovoLivroRequest livroRequest) {
         Livro livro = livroRequest.paraLivro(manager);
         manager.persist(livro);
         return ResponseEntity.ok(new LivroDadosCompletosResponse(livro));

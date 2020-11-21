@@ -1,19 +1,17 @@
 package br.com.zup.montivaljunior.desafiocasadocodigo.dto.request;
 
-import br.com.zup.montivaljunior.desafiocasadocodigo.model.Cliente;
-import br.com.zup.montivaljunior.desafiocasadocodigo.model.Estado;
-import br.com.zup.montivaljunior.desafiocasadocodigo.model.Pais;
+import br.com.zup.montivaljunior.desafiocasadocodigo.model.*;
 import br.com.zup.montivaljunior.desafiocasadocodigo.validation.ExistId;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class NovoClienteRequest implements Serializable {
+public class NovaCompraRequest implements Serializable {
 
     @NotBlank
     @Email
@@ -50,15 +48,29 @@ public class NovoClienteRequest implements Serializable {
     @NotBlank
     private String cep;
 
+    @NotEmpty
+    private List<Item> itens = new ArrayList<>();
+
     /**
      * @Deprecated
      */
     @Deprecated
-    public NovoClienteRequest() {
+    public NovaCompraRequest() {
     }
 
 
-    public NovoClienteRequest(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Long paisId, Long estadoId, @NotBlank String telefone, @NotBlank String cep) {
+    public NovaCompraRequest(@NotBlank @Email String email,
+                             @NotBlank String nome,
+                             @NotBlank String sobrenome,
+                             @NotBlank String documento,
+                             @NotBlank String endereco,
+                             @NotBlank String complemento,
+                             @NotBlank String cidade,
+                             @NotNull Long paisId,
+                             Long estadoId,
+                             @NotBlank String telefone,
+                             @NotBlank String cep,
+                             List<Item> itens){
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -70,9 +82,10 @@ public class NovoClienteRequest implements Serializable {
         this.estadoId = estadoId;
         this.telefone = telefone;
         this.cep = cep;
+        this.itens = itens;
     }
 
-    public Cliente toModel(EntityManager manager){
+    public Compra toModel(EntityManager manager){
        Pais pais = manager.find(Pais.class, this.paisId);
         Estado estado = null;
        if(pais.temEstado()) {
@@ -80,7 +93,9 @@ public class NovoClienteRequest implements Serializable {
            estado = manager.find(Estado.class, this.estadoId);
            Assert.notNull(estado, "Não foi encontrado um Estado com o id igual a " + this.estadoId);
        }
-       return new Cliente(this.email, this.nome, this.sobrenome, this.documento, this.endereco, this.complemento, this.cidade, pais, estado, this.telefone, this.cep);
+
+
+       return new Compra(this.email, this.nome, this.sobrenome, this.documento, this.endereco, this.complemento, this.cidade, pais, estado, this.telefone, this.cep, this.itens );
 
     }
 
@@ -126,5 +141,9 @@ public class NovoClienteRequest implements Serializable {
 
     public String getCep() {
         return cep;
+    }
+
+    public List<Item> getItens() {
+        return itens;
     }
 }

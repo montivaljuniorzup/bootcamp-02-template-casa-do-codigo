@@ -1,7 +1,5 @@
 package br.com.zup.montivaljunior.desafiocasadocodigo.model;
 
-import br.com.zup.montivaljunior.desafiocasadocodigo.dto.response.LivroDadosMinimosResponse;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
@@ -79,11 +77,6 @@ public class Livro {
         this.autor = autor;
     }
 
-    public LivroDadosMinimosResponse paraLivroDadosMinimosResponse(){
-        return new LivroDadosMinimosResponse(this.id, this.titulo);
-    }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -97,6 +90,10 @@ public class Livro {
     @Override
     public int hashCode() {
         return Objects.hash(titulo, isbn, autor);
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getTitulo() {

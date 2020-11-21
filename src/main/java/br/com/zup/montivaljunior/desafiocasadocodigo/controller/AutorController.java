@@ -26,7 +26,7 @@ public class AutorController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity criaNovoAutor(@Valid @RequestBody NovoAutorRequest autorRequest){
+    public ResponseEntity criaNovoAutor(@Valid @RequestBody NovoAutorRequest autorRequest) {
 
         Autor autor = autorRequest.paraAutor();
         manager.persist(autor);

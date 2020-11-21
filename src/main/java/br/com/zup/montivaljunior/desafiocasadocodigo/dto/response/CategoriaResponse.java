@@ -6,6 +6,9 @@ public class CategoriaResponse implements Serializable {
 
     private String nome;
 
+    /**
+     * @Deprecated
+     */
     @Deprecated
     public CategoriaResponse() {
     }

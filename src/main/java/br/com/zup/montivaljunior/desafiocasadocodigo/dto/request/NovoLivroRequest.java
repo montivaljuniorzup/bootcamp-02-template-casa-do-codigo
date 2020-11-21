@@ -3,6 +3,7 @@ package br.com.zup.montivaljunior.desafiocasadocodigo.dto.request;
 import br.com.zup.montivaljunior.desafiocasadocodigo.model.Autor;
 import br.com.zup.montivaljunior.desafiocasadocodigo.model.Categoria;
 import br.com.zup.montivaljunior.desafiocasadocodigo.model.Livro;
+import br.com.zup.montivaljunior.desafiocasadocodigo.validation.ExistId;
 import br.com.zup.montivaljunior.desafiocasadocodigo.validation.UniqueValue;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.util.Assert;
@@ -26,7 +27,7 @@ public class NovoLivroRequest implements Serializable {
     private String sumario;
 
     @NotNull(message = "{livro.preco.obrigatorio}")
-    @Min( message = "{livro.preco.minimo}", value = 20)
+    @Min(message = "{livro.preco.minimo}", value = 20)
     private BigDecimal preco;
 
     @NotNull(message = "{livro.numeropaginas.obrigatorio}")
@@ -43,10 +44,19 @@ public class NovoLivroRequest implements Serializable {
     private LocalDate dataLancamento;
 
     @NotNull(message = "{livro.categoria.obrigatorio}")
+    @ExistId(classe = Categoria.class, atributo = "id")
     private Long categoriaId;
 
     @NotNull(message = "{livro.autor.obrigatorio}")
+    @ExistId(atributo = "id", classe = Autor.class)
     private Long autorId;
+
+    /**
+     * @Deprecated
+     */
+    @Deprecated
+    public NovoLivroRequest() {
+    }
 
     public NovoLivroRequest(@NotBlank String titulo,
                             @NotBlank @Size(max = 500) String resumo,

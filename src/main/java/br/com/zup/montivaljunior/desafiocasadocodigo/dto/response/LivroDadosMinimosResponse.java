@@ -1,5 +1,7 @@
 package br.com.zup.montivaljunior.desafiocasadocodigo.dto.response;
 
+import br.com.zup.montivaljunior.desafiocasadocodigo.model.Livro;
+
 import java.io.Serializable;
 
 public class LivroDadosMinimosResponse implements Serializable {
@@ -8,8 +10,16 @@ public class LivroDadosMinimosResponse implements Serializable {
 
     private String nome;
 
+    /**
+     * @Deprecated
+     */
     @Deprecated
     public LivroDadosMinimosResponse() {
+    }
+
+    public LivroDadosMinimosResponse(Livro livro) {
+        this.id = livro.getId();
+        this.nome = livro.getTitulo();
     }
 
     public LivroDadosMinimosResponse(Long id, String nome) {

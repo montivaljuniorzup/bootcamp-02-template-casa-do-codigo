@@ -12,6 +12,9 @@ public class NovaCategoriaRequest implements Serializable {
     @UniqueValue(classe = Categoria.class, atributo = "nome")
     private String nome;
 
+    /**
+     * @Deprecated
+     */
     @Deprecated
     public NovaCategoriaRequest() {
     }

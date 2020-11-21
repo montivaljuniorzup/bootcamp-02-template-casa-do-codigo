@@ -27,7 +27,6 @@ public class CategoriaController {
     @PostMapping
     @Transactional
     public ResponseEntity criaNovaCategoria(@Valid @RequestBody NovaCategoriaRequest categoriaRequest) {
-
         Categoria categoria = categoriaRequest.paraCategoria();
         manager.persist(categoria);
         return ResponseEntity.ok(categoria.paraResponse());

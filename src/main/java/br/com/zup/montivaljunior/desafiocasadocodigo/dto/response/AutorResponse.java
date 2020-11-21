@@ -9,6 +9,9 @@ public class AutorResponse implements Serializable {
 
     private String descricao;
 
+    /**
+     * @Deprecated
+     */
     @Deprecated
     public AutorResponse() {
     }
@@ -21,7 +24,6 @@ public class AutorResponse implements Serializable {
     public String getNome() {
         return nome;
     }
-
 
     public String getDescricao() {
         return descricao;
