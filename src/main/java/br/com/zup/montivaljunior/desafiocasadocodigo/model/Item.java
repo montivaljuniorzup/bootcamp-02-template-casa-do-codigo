@@ -1,6 +1,6 @@
 package br.com.zup.montivaljunior.desafiocasadocodigo.model;
 
-import br.com.zup.montivaljunior.desafiocasadocodigo.validation.ExistId;
+import br.com.zup.montivaljunior.desafiocasadocodigo.validation.annotation.ExistId;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;

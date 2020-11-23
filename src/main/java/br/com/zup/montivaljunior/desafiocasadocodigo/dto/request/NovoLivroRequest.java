@@ -3,8 +3,8 @@ package br.com.zup.montivaljunior.desafiocasadocodigo.dto.request;
 import br.com.zup.montivaljunior.desafiocasadocodigo.model.Autor;
 import br.com.zup.montivaljunior.desafiocasadocodigo.model.Categoria;
 import br.com.zup.montivaljunior.desafiocasadocodigo.model.Livro;
-import br.com.zup.montivaljunior.desafiocasadocodigo.validation.ExistId;
-import br.com.zup.montivaljunior.desafiocasadocodigo.validation.UniqueValue;
+import br.com.zup.montivaljunior.desafiocasadocodigo.validation.annotation.ExistId;
+import br.com.zup.montivaljunior.desafiocasadocodigo.validation.annotation.UniqueValue;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.util.Assert;
 
@@ -40,7 +40,7 @@ public class NovoLivroRequest implements Serializable {
 
     @Future(message = "{livro.data.invalido}")
     @NotNull(message = "{livro.data.obrigatorio}")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dataLancamento;
 
     @NotNull(message = "{livro.categoria.obrigatorio}")
@@ -93,5 +93,41 @@ public class NovoLivroRequest implements Serializable {
                 this.dataLancamento,
                 categoria,
                 autor);
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getResumo() {
+        return resumo;
+    }
+
+    public String getSumario() {
+        return sumario;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public int getNumeroDePaginas() {
+        return numeroDePaginas;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public LocalDate getDataLancamento() {
+        return dataLancamento;
+    }
+
+    public Long getCategoriaId() {
+        return categoriaId;
+    }
+
+    public Long getAutorId() {
+        return autorId;
     }
 }

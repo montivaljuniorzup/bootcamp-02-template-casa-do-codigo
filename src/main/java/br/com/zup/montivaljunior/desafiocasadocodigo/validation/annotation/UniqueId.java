@@ -1,4 +1,4 @@
-package br.com.zup.montivaljunior.desafiocasadocodigo.validation;
+package br.com.zup.montivaljunior.desafiocasadocodigo.validation.annotation;
 
 import br.com.zup.montivaljunior.desafiocasadocodigo.validation.validator.UniqueIdValidator;
 

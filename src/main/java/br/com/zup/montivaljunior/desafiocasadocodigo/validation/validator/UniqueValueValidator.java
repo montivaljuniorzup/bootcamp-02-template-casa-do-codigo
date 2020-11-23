@@ -1,6 +1,6 @@
 package br.com.zup.montivaljunior.desafiocasadocodigo.validation.validator;
 
-import br.com.zup.montivaljunior.desafiocasadocodigo.validation.UniqueValue;
+import br.com.zup.montivaljunior.desafiocasadocodigo.validation.annotation.UniqueValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 

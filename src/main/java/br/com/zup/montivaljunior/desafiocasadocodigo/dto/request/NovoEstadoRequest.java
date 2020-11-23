@@ -2,8 +2,8 @@ package br.com.zup.montivaljunior.desafiocasadocodigo.dto.request;
 
 import br.com.zup.montivaljunior.desafiocasadocodigo.model.Estado;
 import br.com.zup.montivaljunior.desafiocasadocodigo.model.Pais;
-import br.com.zup.montivaljunior.desafiocasadocodigo.validation.ExistId;
-import br.com.zup.montivaljunior.desafiocasadocodigo.validation.UniqueValue;
+import br.com.zup.montivaljunior.desafiocasadocodigo.validation.annotation.ExistId;
+import br.com.zup.montivaljunior.desafiocasadocodigo.validation.annotation.UniqueValue;
 
 import javax.persistence.EntityManager;
 import javax.validation.constraints.NotBlank;

@@ -1,7 +1,7 @@
 package br.com.zup.montivaljunior.desafiocasadocodigo.dto.request;
 
 import br.com.zup.montivaljunior.desafiocasadocodigo.model.Pais;
-import br.com.zup.montivaljunior.desafiocasadocodigo.validation.UniqueValue;
+import br.com.zup.montivaljunior.desafiocasadocodigo.validation.annotation.UniqueValue;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;

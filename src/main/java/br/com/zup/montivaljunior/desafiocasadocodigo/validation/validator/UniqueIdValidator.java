@@ -1,6 +1,6 @@
 package br.com.zup.montivaljunior.desafiocasadocodigo.validation.validator;
 
-import br.com.zup.montivaljunior.desafiocasadocodigo.validation.UniqueId;
+import br.com.zup.montivaljunior.desafiocasadocodigo.validation.annotation.UniqueId;
 import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;

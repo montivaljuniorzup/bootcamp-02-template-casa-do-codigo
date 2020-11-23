@@ -1,12 +1,19 @@
 package br.com.zup.montivaljunior.desafiocasadocodigo.dto.request;
 
-import br.com.zup.montivaljunior.desafiocasadocodigo.model.*;
-import br.com.zup.montivaljunior.desafiocasadocodigo.validation.ExistId;
+import br.com.zup.montivaljunior.desafiocasadocodigo.model.Compra;
+import br.com.zup.montivaljunior.desafiocasadocodigo.model.Estado;
+import br.com.zup.montivaljunior.desafiocasadocodigo.model.Item;
+import br.com.zup.montivaljunior.desafiocasadocodigo.model.Pais;
+import br.com.zup.montivaljunior.desafiocasadocodigo.validation.annotation.CPFouCNPJ;
+import br.com.zup.montivaljunior.desafiocasadocodigo.validation.annotation.ExistId;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +31,7 @@ public class NovaCompraRequest implements Serializable {
     private String sobrenome;
 
     @NotBlank
+    @CPFouCNPJ(message = "Você precisa informar um CPF ou um CNPJ válido")
     private String documento;
 
     @NotBlank
