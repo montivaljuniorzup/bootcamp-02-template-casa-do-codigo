@@ -12,15 +12,15 @@ public class CpfOuCnpjValidator implements ConstraintValidator<CPFouCNPJ, String
     private CPFValidator cpfValidator;
     private CNPJValidator cnpjValidator;
 
-
+    /**
+     * No momento dessa implementação, o ContraintAnnotation esperado como parâmetro do método initialize não é utilizado na implementação dos métodos de
+     * CPFValidator e CNPJValidator.
+     * Dessa forma foi passado null como parametro. Se numa atualização do Hibernate esse parametro for utilizado, pode gerar quebra na validação.
+     */
     @Override
     public void initialize(CPFouCNPJ constraintAnnotation) {
 
         cpfValidator = new CPFValidator();
-        /*
-         * No momento dessa implementação, o ContraintAnnotation esperado como parâmetro do método initialize não é utilizado na implementação do método,
-         * Dessa forma foi passado null como parametro. Se numa atualização do Hibernate esse parametro for utilizado, pode gerar quebra na validação.
-         */
         cpfValidator.initialize(null);
 
         cnpjValidator = new CNPJValidator();
