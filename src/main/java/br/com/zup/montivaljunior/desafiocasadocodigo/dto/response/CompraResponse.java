@@ -47,6 +47,9 @@ public class CompraResponse implements Serializable {
 
     private CarrinhoCompraResponse carrinhoCompra;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private CupomDescontoResponse cupom;
+
     /**
      * @Deprecated
      */
@@ -72,6 +75,9 @@ public class CompraResponse implements Serializable {
         this.telefone = compra.getTelefone();
         this.cep = compra.getCep();
         this.carrinhoCompra = new CarrinhoCompraResponse(manager, compra.getItens());
+        if(compra.temCupom()){
+        this.cupom = new CupomDescontoResponse(compra.getCupomDesconto());
+        }
     }
 
     public CompraResponse(@NotBlank @Email String email,
@@ -144,5 +150,9 @@ public class CompraResponse implements Serializable {
 
     public CarrinhoCompraResponse getCarrinhoCompra() {
         return carrinhoCompra;
+    }
+
+    public CupomDescontoResponse getCupom() {
+        return cupom;
     }
 }

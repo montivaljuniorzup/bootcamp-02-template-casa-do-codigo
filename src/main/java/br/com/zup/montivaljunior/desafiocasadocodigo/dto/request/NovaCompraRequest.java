@@ -1,9 +1,6 @@
 package br.com.zup.montivaljunior.desafiocasadocodigo.dto.request;
 
-import br.com.zup.montivaljunior.desafiocasadocodigo.model.Compra;
-import br.com.zup.montivaljunior.desafiocasadocodigo.model.Estado;
-import br.com.zup.montivaljunior.desafiocasadocodigo.model.Item;
-import br.com.zup.montivaljunior.desafiocasadocodigo.model.Pais;
+import br.com.zup.montivaljunior.desafiocasadocodigo.model.*;
 import br.com.zup.montivaljunior.desafiocasadocodigo.validation.annotation.CPFouCNPJ;
 import br.com.zup.montivaljunior.desafiocasadocodigo.validation.annotation.ExistId;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -59,6 +56,9 @@ public class NovaCompraRequest implements Serializable {
     @NotEmpty
     private List<Item> itens = new ArrayList<>();
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Long idCupom;
+
     /**
      * @Deprecated
      */
@@ -78,7 +78,8 @@ public class NovaCompraRequest implements Serializable {
                              Long estadoId,
                              @NotBlank String telefone,
                              @NotBlank String cep,
-                             List<Item> itens){
+                             List<Item> itens,
+                             Long idCupom) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -91,19 +92,26 @@ public class NovaCompraRequest implements Serializable {
         this.telefone = telefone;
         this.cep = cep;
         this.itens = itens;
+        this.idCupom = idCupom;
     }
 
-    public Compra toModel(EntityManager manager){
-       Pais pais = manager.find(Pais.class, this.paisId);
+    public Compra toModel(EntityManager manager) {
+        Pais pais = manager.find(Pais.class, this.paisId);
         Estado estado = null;
-       if(pais.temEstado()) {
-           Assert.notNull(this.estadoId, "O País selecionado possui estados cadastrados. Você precisa informar um");
-           estado = manager.find(Estado.class, this.estadoId);
-           Assert.notNull(estado, "Não foi encontrado um Estado com o id igual a " + this.estadoId);
-       }
+        if (pais.temEstado()) {
+            Assert.notNull(this.estadoId, "O País selecionado possui estados cadastrados. Você precisa informar um");
+            estado = manager.find(Estado.class, this.estadoId);
+            Assert.notNull(estado, "Não foi encontrado um Estado com o id igual a " + this.estadoId);
+        }
+        Compra compra = new Compra(this.email, this.nome, this.sobrenome, this.documento, this.endereco, this.complemento, this.cidade, pais, estado, this.telefone, this.cep, this.itens);
+        if (this.idCupom != null) {
+            CupomDesconto cupomDesconto = manager.find(CupomDesconto.class, idCupom);
+            Assert.notNull(cupomDesconto, "O cupom informado não foi localizado");
+            Assert.isTrue(cupomDesconto.isValid(), "Esse Cupom está vencido e já não é mais válido");
+            compra.setCupomDesconto(cupomDesconto);
+        }
 
-
-       return new Compra(this.email, this.nome, this.sobrenome, this.documento, this.endereco, this.complemento, this.cidade, pais, estado, this.telefone, this.cep, this.itens );
+        return compra;
 
     }
 
@@ -153,5 +161,9 @@ public class NovaCompraRequest implements Serializable {
 
     public List<Item> getItens() {
         return itens;
+    }
+
+    public Long getIdCupom() {
+        return idCupom;
     }
 }

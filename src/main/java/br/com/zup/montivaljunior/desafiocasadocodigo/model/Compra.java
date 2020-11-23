@@ -1,12 +1,18 @@
 package br.com.zup.montivaljunior.desafiocasadocodigo.model;
 
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
 public class Compra {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotBlank
     @Email
@@ -31,8 +37,10 @@ public class Compra {
     private String cidade;
 
     @NotNull
+    @ManyToOne
     private Pais pais;
 
+    @ManyToOne
     private Estado estado;
 
     @NotBlank
@@ -41,7 +49,12 @@ public class Compra {
     @NotBlank
     private String cep;
 
+    @ElementCollection
+    @CollectionTable(name = "itens")
     private List<Item> itens;
+
+    @ManyToOne
+    private CupomDesconto cupomDesconto;
 
     /**
      * @Deprecated
@@ -63,6 +76,10 @@ public class Compra {
         this.telefone = telefone;
         this.cep = cep;
         this.itens = itens;
+    }
+
+    public boolean temCupom() {
+        return this.cupomDesconto != null;
     }
 
     public String getEmail() {
@@ -111,6 +128,19 @@ public class Compra {
 
     public List<Item> getItens() {
         return itens;
+    }
+
+    public CupomDesconto getCupomDesconto() {
+        if(this.cupomDesconto != null) {
+            return cupomDesconto;
+        }
+        return new CupomDesconto();
+    }
+
+    public void setCupomDesconto(CupomDesconto cupomDesconto) {
+        if (this.id == null) {
+            this.cupomDesconto = cupomDesconto;
+        }
     }
 
     @Override

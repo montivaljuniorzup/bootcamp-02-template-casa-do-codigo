@@ -28,8 +28,9 @@ public class CadastroCompraController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity criaNovaCompra(@RequestBody @Valid NovaCompraRequest cliente) {
-        Compra cli = cliente.toModel(manager);
-        return new ResponseEntity(new CompraResponse(cli, manager), HttpStatus.CREATED);
+    public ResponseEntity criaNovaCompra(@RequestBody @Valid NovaCompraRequest novaCompraRequest) {
+        Compra compra = novaCompraRequest.toModel(manager);
+        manager.persist(compra);
+        return new ResponseEntity(new CompraResponse(compra, manager), HttpStatus.CREATED);
     }
 }

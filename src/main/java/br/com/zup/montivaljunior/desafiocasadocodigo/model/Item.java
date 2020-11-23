@@ -2,12 +2,13 @@ package br.com.zup.montivaljunior.desafiocasadocodigo.model;
 
 import br.com.zup.montivaljunior.desafiocasadocodigo.validation.annotation.ExistId;
 
+import javax.persistence.Embeddable;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.util.Objects;
 
-
+@Embeddable
 public class Item {
 
     @NotNull

@@ -28,6 +28,7 @@ public class CupomDesconto {
     @Future
     private LocalDate validade;
 
+
     @Deprecated
     public CupomDesconto() {
     }
@@ -63,5 +64,9 @@ public class CupomDesconto {
 
     public LocalDate getValidade() {
         return validade;
+    }
+
+    public boolean isValid() {
+        return !this.validade.isBefore(LocalDate.now());
     }
 }

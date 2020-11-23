@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,6 +41,12 @@ public class AdviceController {
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErroApi handleIllegalArgumentException(IllegalArgumentException e) {
+        return new ErroApi(e.getMessage());
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErroApi handleIllegalArgumentException(ConstraintViolationException e) {
         return new ErroApi(e.getMessage());
     }
 
