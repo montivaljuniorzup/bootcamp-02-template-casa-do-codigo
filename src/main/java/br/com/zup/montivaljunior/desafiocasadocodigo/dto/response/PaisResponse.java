@@ -2,9 +2,7 @@ package br.com.zup.montivaljunior.desafiocasadocodigo.dto.response;
 
 import br.com.zup.montivaljunior.desafiocasadocodigo.model.Pais;
 
-import java.io.Serializable;
-
-public class PaisResponse implements Serializable {
+public class PaisResponse {
 
     private String nome;
 

@@ -9,21 +9,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+//2
 @RestController
 @RequestMapping("/autores")
 public class CadastraAutorController {
 
-    @PersistenceContext
     private EntityManager manager;
 
     public CadastraAutorController(EntityManager manager) {
         this.manager = manager;
     }
 
+    //2
     @PostMapping
     @Transactional
     public ResponseEntity criaNovoAutor(@Valid @RequestBody NovoAutorRequest autorRequest) {

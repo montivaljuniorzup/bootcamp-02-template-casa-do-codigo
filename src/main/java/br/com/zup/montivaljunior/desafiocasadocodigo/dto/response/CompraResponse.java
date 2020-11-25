@@ -7,43 +7,31 @@ import javax.persistence.EntityManager;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class CompraResponse implements Serializable {
+public class CompraResponse {
 
-    @NotBlank
-    @Email
     private String email;
 
-    @NotBlank
     private String nome;
 
-    @NotBlank
     private String sobrenome;
 
-    @NotBlank
     private String documento;
 
-    @NotBlank
     private String endereco;
 
-    @NotBlank
     private String complemento;
 
-    @NotBlank
     private String cidade;
 
-    @NotNull
     private PaisResponse pais;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private EstadoResponse estado;
 
-    @NotBlank
     private String telefone;
 
-    @NotBlank
     private String cep;
 
     private CarrinhoCompraResponse carrinhoCompra;
@@ -87,12 +75,11 @@ public class CompraResponse implements Serializable {
 
         this.telefone = compra.getTelefone();
         this.cep = compra.getCep();
-        CarrinhoCompraResponse carrinhoCompra = new CarrinhoCompraResponse(manager, compra);
-        this.carrinhoCompra = carrinhoCompra;
-        if(compra.temCupom()){
-        this.cupom = new CupomDescontoResponse(compra.getCupomDesconto());
-        this.existeCupom = true;
-        this.valorCupom = carrinhoCompra.getTotal().multiply(BigDecimal.valueOf(compra.getCupomDesconto().getDesconto()));
+        this.carrinhoCompra = new CarrinhoCompraResponse(manager, compra);
+        if (compra.temCupomValido()) {
+            this.cupom = new CupomDescontoResponse(compra.getCupomDesconto());
+            this.existeCupom = true;
+            this.valorCupom = carrinhoCompra.getTotal().multiply(BigDecimal.valueOf(compra.buscaValorDesconto()));
         }
     }
 

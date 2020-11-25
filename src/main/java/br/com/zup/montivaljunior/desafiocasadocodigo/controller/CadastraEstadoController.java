@@ -10,24 +10,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+//2
 @RestController
 @RequestMapping("/estados")
 public class CadastraEstadoController {
 
-    @PersistenceContext
     private EntityManager manager;
 
     public CadastraEstadoController(EntityManager manager) {
         this.manager = manager;
     }
 
+    //2
     @PostMapping
     @Transactional
-    public ResponseEntity criaNovoEstado(@RequestBody @Valid NovoEstadoRequest estadoRequest){
+    public ResponseEntity criaNovoEstado(@RequestBody @Valid NovoEstadoRequest estadoRequest) {
         Estado novoEstado = estadoRequest.toModel(manager);
         manager.persist(novoEstado);
         return new ResponseEntity(HttpStatus.OK);

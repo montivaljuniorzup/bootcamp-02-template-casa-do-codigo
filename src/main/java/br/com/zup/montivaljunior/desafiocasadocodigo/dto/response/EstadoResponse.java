@@ -2,9 +2,7 @@ package br.com.zup.montivaljunior.desafiocasadocodigo.dto.response;
 
 import br.com.zup.montivaljunior.desafiocasadocodigo.model.Estado;
 
-import java.io.Serializable;
-
-public class EstadoResponse implements Serializable {
+public class EstadoResponse {
 
     private String nome;
 

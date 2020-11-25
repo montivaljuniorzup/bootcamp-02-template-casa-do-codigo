@@ -5,10 +5,9 @@ import br.com.zup.montivaljunior.desafiocasadocodigo.validation.annotation.Uniqu
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.validation.constraints.*;
-import java.io.Serializable;
 import java.time.LocalDate;
 
-public class NovoCupomDescontoRequest implements Serializable {
+public class NovoCupomDescontoRequest {
 
     @NotBlank
     @UniqueValue(classe = CupomDesconto.class, atributo = "codigo")

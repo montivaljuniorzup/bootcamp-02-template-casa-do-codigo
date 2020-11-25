@@ -1,8 +1,6 @@
 package br.com.zup.montivaljunior.desafiocasadocodigo.dto.response;
 
-import java.io.Serializable;
-
-public class CategoriaResponse implements Serializable {
+public class CategoriaResponse {
 
     private String nome;
 

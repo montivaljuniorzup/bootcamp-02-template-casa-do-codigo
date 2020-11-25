@@ -11,24 +11,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//4
+//5
 @RestController
 @RequestMapping("/livros/produtos")
 public class BuscaLivroController {
 
-    @PersistenceContext
     private EntityManager manager;
 
     public BuscaLivroController(EntityManager manager) {
         this.manager = manager;
     }
 
-    //2
+    //3
     @GetMapping
     @Transactional
     public ResponseEntity buscaLivros() {
@@ -42,7 +40,7 @@ public class BuscaLivroController {
     @Transactional
     public ResponseEntity<?> buscaLivroPeloId(@PathVariable("id") Long id) {
         Livro livro = manager.find(Livro.class, id);
-        Assert.notNull(livro,"Não foi encontrado Livro com esse Id: " + id);
+        Assert.notNull(livro, "Não foi encontrado Livro com esse Id: " + id);
         return ResponseEntity.ok(new LivroDadosCompletosResponse(livro));
     }
 }

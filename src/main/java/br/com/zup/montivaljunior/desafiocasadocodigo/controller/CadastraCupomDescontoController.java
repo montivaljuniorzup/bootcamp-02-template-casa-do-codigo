@@ -11,21 +11,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+//3
 @RestController
 @RequestMapping("/cupons")
 public class CadastraCupomDescontoController {
 
-    @PersistenceContext
     private EntityManager manager;
 
     public CadastraCupomDescontoController(EntityManager manager) {
         this.manager = manager;
     }
 
+    //3
     @PostMapping
     @Transactional
     public ResponseEntity criaNovoCupom(@Valid @RequestBody NovoCupomDescontoRequest novoCupom) {

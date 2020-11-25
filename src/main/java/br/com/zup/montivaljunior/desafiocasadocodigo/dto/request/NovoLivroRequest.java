@@ -10,11 +10,10 @@ import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
 import javax.validation.constraints.*;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class NovoLivroRequest implements Serializable {
+public class NovoLivroRequest {
 
     @NotBlank(message = "{livro.titulo.obrigatorio}")
     @UniqueValue(classe = Livro.class, atributo = "titulo")

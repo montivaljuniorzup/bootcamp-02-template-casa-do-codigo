@@ -50,34 +50,12 @@ public class CarrinhoCompraResponse {
 
     public BigDecimal calculaValorComDesconto(Compra compra) {
 
-        if (compra.temCupom() && compra.temCupomValido()) {
-            double desconto = compra.getCupomDesconto().getDesconto();
+        if (compra.temCupomValido()) {
+            double desconto = compra.buscaValorDesconto();
             return this.total.multiply(BigDecimal.valueOf((1 - desconto)));
         }
         return this.total;
     }
-//    private Double buscaValorTotalDosItens(EntityManager manager, Compra compra) {
-//        Double itensSomados = itens.stream().mapToDouble(i -> {
-//
-//            Livro livro = manager.find(Livro.class, i.getIdLivro());
-//            Assert.state(livro != null, "Não foi encontrado livro com o id " + i.getIdLivro());
-//            Assert.state(i.getQuantidade() > 0, "A quantidade de livros deve ser no mínimo 1");
-//
-//            BigDecimal valorSemDesconto = livro.getPreco().multiply(BigDecimal.valueOf(i.getQuantidade()));
-//
-//            if (compra.temCupom() && compra.temCupomValido()) {
-//
-//                double desconto = compra.getCupomDesconto().getDesconto();
-//
-//                return valorSemDesconto.multiply(BigDecimal.valueOf((1 - desconto))).doubleValue();
-//
-//            } else {
-//
-//                return valorSemDesconto.doubleValue();
-//            }
-//        }).sum();
-//        return itensSomados;
-//    }
 
     public BigDecimal getTotal() {
         return total;

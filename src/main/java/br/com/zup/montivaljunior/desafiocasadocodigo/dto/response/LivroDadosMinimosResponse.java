@@ -2,9 +2,7 @@ package br.com.zup.montivaljunior.desafiocasadocodigo.dto.response;
 
 import br.com.zup.montivaljunior.desafiocasadocodigo.model.Livro;
 
-import java.io.Serializable;
-
-public class LivroDadosMinimosResponse implements Serializable {
+public class LivroDadosMinimosResponse {
 
     private Long id;
 

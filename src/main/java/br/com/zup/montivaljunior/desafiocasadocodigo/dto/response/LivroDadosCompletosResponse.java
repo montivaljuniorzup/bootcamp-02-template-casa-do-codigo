@@ -2,35 +2,23 @@ package br.com.zup.montivaljunior.desafiocasadocodigo.dto.response;
 
 import br.com.zup.montivaljunior.desafiocasadocodigo.model.Livro;
 
-import javax.validation.constraints.*;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
 
-public class LivroDadosCompletosResponse implements Serializable {
+public class LivroDadosCompletosResponse {
 
-    @NotBlank
     private String titulo;
 
-    @NotBlank
-    @Size(max = 500)
     private String resumo;
 
     private String sumario;
 
-    @NotNull
-    @Min(20)
     private BigDecimal preco;
 
-    @NotNull
-    @Min(100)
     private int numeroDePaginas;
 
-    @NotBlank
     private String isbn;
 
-    @Future
-    @NotNull
     private String dataLancamento;
 
     private CategoriaResponse categoria;

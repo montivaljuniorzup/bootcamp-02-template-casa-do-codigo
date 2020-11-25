@@ -10,19 +10,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+//2
 @RestController
 @RequestMapping("/compras/finaliza")
 public class BuscaCompraController {
-    @PersistenceContext
+
     private EntityManager manager;
 
     public BuscaCompraController(EntityManager manager) {
         this.manager = manager;
     }
 
+    //2
     @GetMapping("/{id}")
     @Transactional
     public ResponseEntity buscaCompraPeloId(@PathVariable("id") Long id) {

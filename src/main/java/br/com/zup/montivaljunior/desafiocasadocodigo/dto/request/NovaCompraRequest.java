@@ -11,11 +11,10 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NovaCompraRequest implements Serializable {
+public class NovaCompraRequest {
 
     @NotBlank
     @Email
@@ -98,7 +97,7 @@ public class NovaCompraRequest implements Serializable {
     public Compra toModel(EntityManager manager) {
         Pais pais = BuscaPais(manager);
         Estado estado = buscaEstado(manager, pais);
-        Compra compra = new Compra(this.email, this.nome, this.sobrenome, this.documento, this.endereco, this.complemento, this.cidade, pais, estado, this.telefone, this.cep,  this.itens);
+        Compra compra = new Compra(this.email, this.nome, this.sobrenome, this.documento, this.endereco, this.complemento, this.cidade, pais, estado, this.telefone, this.cep, this.itens);
         return adicionaCupom(manager, compra);
 
     }

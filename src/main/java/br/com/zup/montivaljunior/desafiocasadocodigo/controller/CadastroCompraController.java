@@ -11,22 +11,22 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 
+//3
 @RestController
 @RequestMapping("/pagamentos")
 public class CadastroCompraController {
 
-    @PersistenceContext
     private EntityManager manager;
 
     public CadastroCompraController(EntityManager manager) {
         this.manager = manager;
     }
 
+    //3
     @PostMapping
     @Transactional
     public ResponseEntity criaNovaCompra(@RequestBody @Valid NovaCompraRequest novaCompraRequest, UriComponentsBuilder builder) {

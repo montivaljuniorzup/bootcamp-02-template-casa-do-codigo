@@ -4,9 +4,8 @@ import br.com.zup.montivaljunior.desafiocasadocodigo.model.Pais;
 import br.com.zup.montivaljunior.desafiocasadocodigo.validation.annotation.UniqueValue;
 
 import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 
-public class NovoPaisRequest implements Serializable {
+public class NovoPaisRequest {
 
     @NotBlank
     @UniqueValue(atributo = "nome", classe = Pais.class)
@@ -23,7 +22,7 @@ public class NovoPaisRequest implements Serializable {
         this.nome = nome;
     }
 
-    public Pais toModel(){
+    public Pais toModel() {
         return new Pais(this.nome);
     }
 

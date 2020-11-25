@@ -10,23 +10,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
-//2
+//3
 @RestController
 @RequestMapping("/livros")
 public class CadastroLivroController {
 
-    @PersistenceContext
     private EntityManager manager;
 
     public CadastroLivroController(EntityManager manager) {
         this.manager = manager;
     }
 
-    //2
+    //3
     @PostMapping
     @Transactional
     public ResponseEntity criaNovoLivro(@Valid @RequestBody NovoLivroRequest livroRequest) {

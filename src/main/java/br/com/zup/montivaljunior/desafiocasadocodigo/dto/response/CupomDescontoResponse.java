@@ -1,20 +1,21 @@
 package br.com.zup.montivaljunior.desafiocasadocodigo.dto.response;
 
 import br.com.zup.montivaljunior.desafiocasadocodigo.model.CupomDesconto;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import java.io.Serializable;
 import java.time.LocalDate;
 
-public class CupomDescontoResponse implements Serializable {
+public class CupomDescontoResponse {
 
     private String codigo;
 
     private double desconto;
 
+    @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate validade;
 
     @Deprecated
@@ -23,7 +24,7 @@ public class CupomDescontoResponse implements Serializable {
 
     public CupomDescontoResponse(CupomDesconto cupomDesconto) {
         this.codigo = cupomDesconto.getCodigo();
-        this.desconto = cupomDesconto.getDesconto();
+        this.desconto = cupomDesconto.getDesconto() * 100;
         this.validade = cupomDesconto.getValidade();
     }
 
@@ -31,10 +32,6 @@ public class CupomDescontoResponse implements Serializable {
         this.codigo = codigo;
         this.desconto = desconto;
         this.validade = validade;
-    }
-
-    public CupomDesconto paraCupom() {
-        return new CupomDesconto(this.codigo, this.desconto, this.validade);
     }
 
     public String getCodigo() {

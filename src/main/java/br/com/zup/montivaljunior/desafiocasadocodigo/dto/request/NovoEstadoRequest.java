@@ -9,9 +9,8 @@ import org.springframework.util.Assert;
 import javax.persistence.EntityManager;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
-public class NovoEstadoRequest implements Serializable {
+public class NovoEstadoRequest {
 
     @NotBlank
     @UniqueValue(classe = Estado.class, atributo = "nome")

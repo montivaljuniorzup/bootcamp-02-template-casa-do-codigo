@@ -9,21 +9,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+//2
 @RestController
 @RequestMapping("/categorias")
 public class CategoriaController {
 
-    @PersistenceContext
     private EntityManager manager;
 
     public CategoriaController(EntityManager manager) {
         this.manager = manager;
     }
 
+    //2
     @PostMapping
     @Transactional
     public ResponseEntity criaNovaCategoria(@Valid @RequestBody NovaCategoriaRequest categoriaRequest) {
