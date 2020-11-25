@@ -15,11 +15,11 @@ import javax.validation.Valid;
 //2
 @RestController
 @RequestMapping("/categorias")
-public class CategoriaController {
+public class CadastraCategoriaController {
 
     private EntityManager manager;
 
-    public CategoriaController(EntityManager manager) {
+    public CadastraCategoriaController(EntityManager manager) {
         this.manager = manager;
     }
 

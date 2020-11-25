@@ -17,7 +17,7 @@ public class NovoEstadoRequest {
     private String nome;
 
     @NotNull
-    @ExistId(classe = Pais.class, atributo = "id")
+    @ExistId(classe = Pais.class, atributo = "id", message = "Não foi encontrado Pais com o id informado")
     private Long paisId;
 
     /**

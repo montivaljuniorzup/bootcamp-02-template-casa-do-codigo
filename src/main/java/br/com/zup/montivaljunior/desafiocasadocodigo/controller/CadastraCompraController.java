@@ -3,11 +3,10 @@ package br.com.zup.montivaljunior.desafiocasadocodigo.controller;
 import br.com.zup.montivaljunior.desafiocasadocodigo.dto.request.NovaCompraRequest;
 import br.com.zup.montivaljunior.desafiocasadocodigo.dto.response.CompraResponse;
 import br.com.zup.montivaljunior.desafiocasadocodigo.model.Compra;
+import br.com.zup.montivaljunior.desafiocasadocodigo.validation.validator.ExisteLivroValidator;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.persistence.EntityManager;
@@ -18,12 +17,17 @@ import java.net.URI;
 //3
 @RestController
 @RequestMapping("/pagamentos")
-public class CadastroCompraController {
+public class CadastraCompraController {
 
     private EntityManager manager;
 
-    public CadastroCompraController(EntityManager manager) {
+    public CadastraCompraController(EntityManager manager) {
         this.manager = manager;
+    }
+
+    @InitBinder
+    public void init(WebDataBinder binder) {
+        binder.addValidators(new ExisteLivroValidator(manager));
     }
 
     //3

@@ -16,11 +16,11 @@ import javax.validation.Valid;
 //3
 @RestController
 @RequestMapping("/livros")
-public class CadastroLivroController {
+public class CadastraLivroController {
 
     private EntityManager manager;
 
-    public CadastroLivroController(EntityManager manager) {
+    public CadastraLivroController(EntityManager manager) {
         this.manager = manager;
     }
 

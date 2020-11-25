@@ -1,12 +1,14 @@
 package br.com.zup.montivaljunior.desafiocasadocodigo.controller;
 
 import br.com.zup.montivaljunior.desafiocasadocodigo.exceptions.ErroApi;
+import br.com.zup.montivaljunior.desafiocasadocodigo.exceptions.RecursoNaoEncontradoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.ConstraintViolationException;
 import java.util.List;
@@ -32,24 +34,34 @@ public class AdviceController {
         return new ErroApi(e.getMessage());
     }
 
-    @ExceptionHandler(IllegalStateException.class)
+    @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErroApi handleIllegalStateException(IllegalStateException e) {
+    public ErroApi handleConstraintViolationException(ConstraintViolationException e) {
         return new ErroApi(e.getMessage());
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErroApi handleIllegalArgumentException(IllegalArgumentException e) {
         return new ErroApi(e.getMessage());
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErroApi handleIllegalArgumentException(ConstraintViolationException e) {
+    @ExceptionHandler(IllegalStateException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErroApi handleIllegalStateException(IllegalStateException e) {
         return new ErroApi(e.getMessage());
     }
 
+    @ExceptionHandler(RecursoNaoEncontradoException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErroApi handleRecursoNaoEncontradoException(RecursoNaoEncontradoException e) {
+        return new ErroApi(e.getMessage());
+    }
+    @ExceptionHandler(ResponseStatusException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErroApi handleRecursoNaoEncontradoException(ResponseStatusException e) {
+        return new ErroApi(e.getMessage());
+    }
 
 }
 

@@ -1,16 +1,14 @@
-package br.com.zup.montivaljunior.desafiocasadocodigo.model;
+package br.com.zup.montivaljunior.desafiocasadocodigo.dto.request;
 
+import br.com.zup.montivaljunior.desafiocasadocodigo.model.Livro;
 import br.com.zup.montivaljunior.desafiocasadocodigo.validation.annotation.ExistId;
 
-import javax.persistence.Embeddable;
-import javax.persistence.EntityManager;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.util.Objects;
 
-@Embeddable
-public class Item {
+public class ItemRequest {
 
     @NotNull
     @ExistId(atributo = "id", classe = Livro.class, message = "Não foi encontrado Livro com o id informado")
@@ -25,15 +23,10 @@ public class Item {
      * @Deprecated
      */
     @Deprecated
-    public Item() {
+    public ItemRequest() {
     }
 
-    public Boolean existeLivro(EntityManager manager) {
-        Livro livro = manager.find(Livro.class, this.idLivro);
-        return livro != null;
-    }
-
-    public Item(@NotNull Long idLivro, @NotNull @Positive @Min(1) int quantidade) {
+    public ItemRequest(@NotNull Long idLivro, @NotNull @Positive @Min(1) int quantidade) {
         this.idLivro = idLivro;
         this.quantidade = quantidade;
     }
@@ -50,7 +43,7 @@ public class Item {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Item item = (Item) o;
+        ItemRequest item = (ItemRequest) o;
         return idLivro.equals(item.idLivro);
     }
 

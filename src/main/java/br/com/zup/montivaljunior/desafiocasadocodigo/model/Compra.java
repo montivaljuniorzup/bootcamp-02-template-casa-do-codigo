@@ -16,41 +16,51 @@ public class Compra {
 
     @NotBlank
     @Email
+    @Column(nullable = false)
     private String email;
 
     @NotBlank
+    @Column(nullable = false)
     private String nome;
 
     @NotBlank
+    @Column(nullable = false)
     private String sobrenome;
 
     @NotBlank
+    @Column(nullable = false)
     private String documento;
 
     @NotBlank
+    @Column(nullable = false)
     private String endereco;
 
     @NotBlank
+    @Column(nullable = false)
     private String complemento;
 
     @NotBlank
+    @Column(nullable = false)
     private String cidade;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Pais pais;
 
     @ManyToOne
     private Estado estado;
 
     @NotBlank
+    @Column(nullable = false)
     private String telefone;
 
     @NotBlank
+    @Column(nullable = false)
     private String cep;
 
     @ElementCollection
     @CollectionTable(name = "itens")
+    @NotNull
     private List<Item> itens;
 
     @ManyToOne

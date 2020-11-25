@@ -18,7 +18,7 @@ public class Estado {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "pais_id", unique = true, nullable = false)
+    @JoinColumn(name = "pais_id", nullable = false)
     private Pais pais;
 
     /**
@@ -49,5 +49,12 @@ public class Estado {
     @Override
     public int hashCode() {
         return Objects.hash(nome, pais);
+    }
+
+    public boolean pertenceAoPais(Pais pais) {
+        if (pais.temEstado()) {
+            return this.pais.equals(pais);
+        }
+        return false;
     }
 }

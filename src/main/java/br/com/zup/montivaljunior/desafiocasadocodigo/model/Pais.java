@@ -31,11 +31,6 @@ public class Pais {
         this.nome = nome;
     }
 
-    public Pais(@NotBlank String nome, List<Estado> estados) {
-        this.nome = nome;
-        this.estados = estados;
-    }
-
     public boolean temEstado() {
         return !this.estados.isEmpty();
     }

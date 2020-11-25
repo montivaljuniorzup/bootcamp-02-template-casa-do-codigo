@@ -43,11 +43,11 @@ public class NovoLivroRequest {
     private LocalDate dataLancamento;
 
     @NotNull(message = "{livro.categoria.obrigatorio}")
-    @ExistId(classe = Categoria.class, atributo = "id")
+    @ExistId(classe = Categoria.class, atributo = "id", message = "Não foi encontrada Categoria com o id informado")
     private Long categoriaId;
 
     @NotNull(message = "{livro.autor.obrigatorio}")
-    @ExistId(atributo = "id", classe = Autor.class)
+    @ExistId(atributo = "id", classe = Autor.class, message = "Não foi encontrado(a) Autor(a) com o id informado")
     private Long autorId;
 
     /**

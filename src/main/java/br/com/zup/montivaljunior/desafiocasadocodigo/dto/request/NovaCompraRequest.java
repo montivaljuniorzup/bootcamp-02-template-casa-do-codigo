@@ -4,15 +4,15 @@ import br.com.zup.montivaljunior.desafiocasadocodigo.model.*;
 import br.com.zup.montivaljunior.desafiocasadocodigo.validation.annotation.CPFouCNPJ;
 import br.com.zup.montivaljunior.desafiocasadocodigo.validation.annotation.ExistId;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.http.HttpStatus;
 import org.springframework.util.Assert;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.EntityManager;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class NovaCompraRequest {
 
@@ -40,7 +40,7 @@ public class NovaCompraRequest {
     private String cidade;
 
     @NotNull
-    @ExistId(classe = Pais.class, atributo = "id")
+    @ExistId(classe = Pais.class, atributo = "id", message = "Não foi encontrado Pais com o id informado")
     private Long paisId;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -53,9 +53,11 @@ public class NovaCompraRequest {
     private String cep;
 
     @NotEmpty
+    @Size(min = 1)
     private List<Item> itens = new ArrayList<>();
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @ExistId(classe = CupomDesconto.class, atributo = "id", message = "Não foi encontrado Cupom com o id informado")
     private Long idCupom;
 
     /**
@@ -95,39 +97,63 @@ public class NovaCompraRequest {
     }
 
     public Compra toModel(EntityManager manager) {
-        Pais pais = BuscaPais(manager);
+        Pais pais = buscaPais(manager);
         Estado estado = buscaEstado(manager, pais);
-        Compra compra = new Compra(this.email, this.nome, this.sobrenome, this.documento, this.endereco, this.complemento, this.cidade, pais, estado, this.telefone, this.cep, this.itens);
-        return adicionaCupom(manager, compra);
 
+        Compra compra = new Compra(this.email,
+                this.nome,
+                this.sobrenome,
+                this.documento,
+                this.endereco,
+                this.complemento,
+                this.cidade,
+                pais,
+                estado,
+                this.telefone,
+                this.cep,
+                this.itens);
+
+        return adicionaCupom(manager, compra);
     }
 
     private Estado buscaEstado(EntityManager manager, Pais pais) {
         Estado estado = null;
         if (pais.temEstado()) {
             Assert.notNull(this.estadoId, "O País selecionado possui estados cadastrados. Você precisa informar um");
-
             estado = manager.find(Estado.class, this.estadoId);
-            Assert.notNull(estado, "Não foi encontrado um Estado com o id igual a " + this.estadoId);
+            if (estado != null) {
+                if (!estado.pertenceAoPais(pais)) {
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O estado informado não pertence ao Pais informado");
+                }
+            }else {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Não foi encontrado um Estado com o id igual a " + this.estadoId);
+            }
         }
         return estado;
     }
 
-    private Pais BuscaPais(EntityManager manager) {
+    private Pais buscaPais(EntityManager manager) {
         Pais pais = manager.find(Pais.class, this.paisId);
         Assert.notNull(pais, "Não foi encontrado um Pais com o id igual a " + this.paisId);
         return pais;
     }
 
     private Compra adicionaCupom(EntityManager manager, Compra compra) {
-        if (this.idCupom != null) {
+        if (existeCupomAtreladoACompra()) {
             CupomDesconto cupomDesconto = manager.find(CupomDesconto.class, idCupom);
-            Assert.notNull(cupomDesconto, "O cupom informado não foi localizado");
-            Assert.isTrue(cupomDesconto.isValid(), "Esse Cupom está vencido e já não é válido");
-            compra.aplicaCupomDesconto(cupomDesconto);
+            if (cupomDesconto.isValid() && cupomDesconto != null) {
+                compra.aplicaCupomDesconto(cupomDesconto);
+            }
         }
-
         return compra;
+    }
+
+    private boolean existeCupomAtreladoACompra() {
+        return this.idCupom != null;
+    }
+
+    public List<Long> buscaIdsDosLivros() {
+        return this.itens.stream().map(i -> i.getIdLivro()).collect(Collectors.toList());
     }
 
     public String getEmail() {

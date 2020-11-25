@@ -43,11 +43,11 @@ public class Autor {
     public Autor() {
     }
 
-    public Autor(@NotBlank String nome, @Email @NotBlank String email, @NotBlank @Size(max = 400) String descricao, @NotNull LocalDateTime instanteCriacao) {
+    public Autor(@NotBlank String nome, @Email @NotBlank String email, @NotBlank @Size(max = 400) String descricao) {
         this.nome = nome;
         this.email = email;
         this.descricao = descricao;
-        this.instanteCriacao = instanteCriacao;
+        this.instanteCriacao = LocalDateTime.now();
     }
 
     public AutorResponse paraResponse() {

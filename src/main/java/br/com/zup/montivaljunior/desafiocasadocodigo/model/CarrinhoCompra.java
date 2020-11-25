@@ -1,6 +1,5 @@
 package br.com.zup.montivaljunior.desafiocasadocodigo.model;
 
-import javax.persistence.EntityManager;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -14,7 +13,6 @@ public class CarrinhoCompra {
 
     @NotNull
     @Positive
-    @Min(1)
     private BigDecimal total;
 
     @NotNull
@@ -28,28 +26,28 @@ public class CarrinhoCompra {
     public CarrinhoCompra() {
     }
 
-    public CarrinhoCompra(EntityManager manager, @NotNull @Min(1) List<Item> itens) {
-        this.itens = itens;
-        Long total = itens.stream().map(i -> {
-            Livro livro = manager.find(Livro.class, i.getIdLivro());
-            BigDecimal precoTotal = livro.getPreco().multiply(BigDecimal.valueOf(i.getQuantidade()));
-            return precoTotal;
-        }).count();
+//    public CarrinhoCompra(EntityManager manager, @NotNull @Min(1) List<Item> itens) {
+//        this.itens = itens;
+//        Long total = itens.stream().map(i -> {
+//            Livro livro = manager.find(Livro.class, i.getIdLivro());
+//            BigDecimal precoTotal = livro.getPreco().multiply(BigDecimal.valueOf(i.getQuantidade()));
+//            return precoTotal;
+//        }).count();
+//
+//        this.total = BigDecimal.valueOf(total);
+//    }
 
-        this.total = BigDecimal.valueOf(total);
-    }
-
-    public BigDecimal getTotal() {
-        return total;
-    }
+//    public BigDecimal getTotal() {
+//        return total;
+//    }
 
     public List<Item> getItens() {
         return itens;
     }
 
-    public void setTotal(BigDecimal total) {
-        this.total = total;
-    }
+//    public void setTotal(BigDecimal total) {
+//        this.total = total;
+//    }
 
     @Override
     public boolean equals(Object o) {

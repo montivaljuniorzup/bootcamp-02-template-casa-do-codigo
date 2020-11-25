@@ -5,9 +5,7 @@ import br.com.zup.montivaljunior.desafiocasadocodigo.validation.annotation.Uniqu
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
 
 public class NovoAutorRequest {
 
@@ -23,8 +21,8 @@ public class NovoAutorRequest {
     @Size(max = 400, message = "{autor.descricao.invalido}")
     private String descricao;
 
-    @NotNull(message = "{autor.nome.obrigatorio}")
-    private LocalDateTime instanteCriacao = LocalDateTime.now();
+  //  @NotNull(message = "{autor.nome.obrigatorio}")
+    //private LocalDateTime instanteCriacao = LocalDateTime.now();
 
     /**
      * @Deprecated
@@ -33,7 +31,9 @@ public class NovoAutorRequest {
     public NovoAutorRequest() {
     }
 
-    public NovoAutorRequest(@NotBlank String nome, @Email @NotBlank String email, @NotBlank @Size(min = 400) String descricao) {
+    public NovoAutorRequest(@NotBlank String nome,
+                            @Email @NotBlank String email,
+                            @NotBlank @Size(min = 400) String descricao) {
         this.nome = nome;
         this.email = email;
         this.descricao = descricao;
@@ -51,11 +51,11 @@ public class NovoAutorRequest {
         return descricao;
     }
 
-    public LocalDateTime getInstanteCriacao() {
-        return instanteCriacao;
-    }
+  // public LocalDateTime getInstanteCriacao() {
+  //      return instanteCriacao;
+   // }
 
     public Autor paraAutor() {
-        return new Autor(this.nome, this.email, this.descricao, this.instanteCriacao);
+        return new Autor(this.nome, this.email, this.descricao);
     }
 }

@@ -31,13 +31,13 @@ public class CarrinhoCompraResponse {
     public CarrinhoCompraResponse(EntityManager manager, Compra compra) {
         this.itens = compra.getItens();
 
-        Double itensSomados = buscaValorTotalDosItens(manager, compra);
+        Double itensSomados = buscaValorTotalDosItens(manager);
         this.total = BigDecimal.valueOf(itensSomados);
         this.totalComDesconto = calculaValorComDesconto(compra);
     }
 
-    private Double buscaValorTotalDosItens(EntityManager manager, Compra compra) {
-        return itens.stream().mapToDouble(i -> {
+    private Double buscaValorTotalDosItens(EntityManager manager) {
+        return this.itens.stream().mapToDouble(i -> {
             Livro livro = manager.find(Livro.class, i.getIdLivro());
             Assert.state(livro != null, "Não foi encontrado livro com o id " + i.getIdLivro());
             Assert.state(i.getQuantidade() > 0, "A quantidade de livros deve ser no mínimo 1");
@@ -48,7 +48,7 @@ public class CarrinhoCompraResponse {
 
     }
 
-    public BigDecimal calculaValorComDesconto(Compra compra) {
+    private BigDecimal calculaValorComDesconto(Compra compra) {
 
         if (compra.temCupomValido()) {
             double desconto = compra.buscaValorDesconto();
