@@ -13,11 +13,12 @@ public class Estado {
     private Long id;
 
     @NotBlank
+    @Column(nullable = false, unique = true)
     private String nome;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "pais_id")
+    @JoinColumn(name = "pais_id", unique = true, nullable = false)
     private Pais pais;
 
     /**

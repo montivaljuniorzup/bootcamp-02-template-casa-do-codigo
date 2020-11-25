@@ -15,12 +15,12 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/autores")
-public class AutorController {
+public class CadastraAutorController {
 
     @PersistenceContext
     private EntityManager manager;
 
-    public AutorController(EntityManager manager) {
+    public CadastraAutorController(EntityManager manager) {
         this.manager = manager;
     }
 

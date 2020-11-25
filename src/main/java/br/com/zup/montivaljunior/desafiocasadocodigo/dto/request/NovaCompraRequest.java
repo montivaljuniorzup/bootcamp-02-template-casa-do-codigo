@@ -96,23 +96,39 @@ public class NovaCompraRequest implements Serializable {
     }
 
     public Compra toModel(EntityManager manager) {
-        Pais pais = manager.find(Pais.class, this.paisId);
+        Pais pais = BuscaPais(manager);
+        Estado estado = buscaEstado(manager, pais);
+        Compra compra = new Compra(this.email, this.nome, this.sobrenome, this.documento, this.endereco, this.complemento, this.cidade, pais, estado, this.telefone, this.cep,  this.itens);
+        return adicionaCupom(manager, compra);
+
+    }
+
+    private Estado buscaEstado(EntityManager manager, Pais pais) {
         Estado estado = null;
         if (pais.temEstado()) {
             Assert.notNull(this.estadoId, "O País selecionado possui estados cadastrados. Você precisa informar um");
+
             estado = manager.find(Estado.class, this.estadoId);
             Assert.notNull(estado, "Não foi encontrado um Estado com o id igual a " + this.estadoId);
         }
-        Compra compra = new Compra(this.email, this.nome, this.sobrenome, this.documento, this.endereco, this.complemento, this.cidade, pais, estado, this.telefone, this.cep, this.itens);
+        return estado;
+    }
+
+    private Pais BuscaPais(EntityManager manager) {
+        Pais pais = manager.find(Pais.class, this.paisId);
+        Assert.notNull(pais, "Não foi encontrado um Pais com o id igual a " + this.paisId);
+        return pais;
+    }
+
+    private Compra adicionaCupom(EntityManager manager, Compra compra) {
         if (this.idCupom != null) {
             CupomDesconto cupomDesconto = manager.find(CupomDesconto.class, idCupom);
             Assert.notNull(cupomDesconto, "O cupom informado não foi localizado");
-            Assert.isTrue(cupomDesconto.isValid(), "Esse Cupom está vencido e já não é mais válido");
-            compra.setCupomDesconto(cupomDesconto);
+            Assert.isTrue(cupomDesconto.isValid(), "Esse Cupom está vencido e já não é válido");
+            compra.aplicaCupomDesconto(cupomDesconto);
         }
 
         return compra;
-
     }
 
     public String getEmail() {

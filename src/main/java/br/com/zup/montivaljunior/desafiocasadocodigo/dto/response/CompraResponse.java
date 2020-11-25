@@ -8,6 +8,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class CompraResponse implements Serializable {
 
@@ -50,6 +51,18 @@ public class CompraResponse implements Serializable {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private CupomDescontoResponse cupom;
 
+    private boolean existeCupom;
+
+    private BigDecimal valorCupom;
+
+    public BigDecimal getValorCupom() {
+        return valorCupom;
+    }
+
+    public boolean isExisteCupom() {
+        return existeCupom;
+    }
+
     /**
      * @Deprecated
      */
@@ -74,9 +87,12 @@ public class CompraResponse implements Serializable {
 
         this.telefone = compra.getTelefone();
         this.cep = compra.getCep();
-        this.carrinhoCompra = new CarrinhoCompraResponse(manager, compra.getItens());
+        CarrinhoCompraResponse carrinhoCompra = new CarrinhoCompraResponse(manager, compra);
+        this.carrinhoCompra = carrinhoCompra;
         if(compra.temCupom()){
         this.cupom = new CupomDescontoResponse(compra.getCupomDesconto());
+        this.existeCupom = true;
+        this.valorCupom = carrinhoCompra.getTotal().multiply(BigDecimal.valueOf(compra.getCupomDesconto().getDesconto()));
         }
     }
 

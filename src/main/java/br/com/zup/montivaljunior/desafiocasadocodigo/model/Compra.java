@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
@@ -78,8 +79,28 @@ public class Compra {
         this.itens = itens;
     }
 
+    public boolean temCupomValido() {
+        return this.cupomDesconto.isValid();
+    }
     public boolean temCupom() {
         return this.cupomDesconto != null;
+    }
+
+    public void aplicaCupomDesconto(CupomDesconto cupomDesconto) {
+        if (this.id == null) {
+            this.cupomDesconto = cupomDesconto;
+        }
+    }
+
+    public BigDecimal valorComDesconto() {
+        if(temCupom() && temCupomValido()){
+       //     return this.cupomDesconto * this.;
+        }
+        return null;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getEmail() {
@@ -137,12 +158,6 @@ public class Compra {
         return new CupomDesconto();
     }
 
-    public void setCupomDesconto(CupomDesconto cupomDesconto) {
-        if (this.id == null) {
-            this.cupomDesconto = cupomDesconto;
-        }
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -157,4 +172,6 @@ public class Compra {
     public int hashCode() {
         return Objects.hash(email, documento, itens);
     }
+
+
 }

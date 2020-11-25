@@ -79,11 +79,8 @@ public class NovoLivroRequest implements Serializable {
     }
 
     public Livro paraLivro(EntityManager manager) {
-
-        Categoria categoria = manager.find(Categoria.class, this.categoriaId);
-        Assert.state(categoria != null, "Não existe uma categoria associada a esse Id");
-        Autor autor = manager.find(Autor.class, this.autorId);
-        Assert.state(autor != null, "Não existe um autor(a) associado(a) a esse Id");
+        Categoria categoria = buscaCategoria(manager);
+        Autor autor = buscaAutor(manager);
         return new Livro(this.titulo,
                 this.resumo,
                 this.sumario,
@@ -93,6 +90,18 @@ public class NovoLivroRequest implements Serializable {
                 this.dataLancamento,
                 categoria,
                 autor);
+    }
+
+    private Autor buscaAutor(EntityManager manager) {
+        Autor autor = manager.find(Autor.class, this.autorId);
+        Assert.state(autor != null, "Não existe um autor(a) associado(a) a esse Id");
+        return autor;
+    }
+
+    private Categoria buscaCategoria(EntityManager manager) {
+        Categoria categoria = manager.find(Categoria.class, this.categoriaId);
+        Assert.state(categoria != null, "Não existe uma categoria associada a esse Id");
+        return categoria;
     }
 
     public String getTitulo() {

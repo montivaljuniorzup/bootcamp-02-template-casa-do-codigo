@@ -32,7 +32,6 @@ public class CpfOuCnpjValidator implements ConstraintValidator<CPFouCNPJ, String
 
         boolean cpfIsValid = cpfValidator.isValid(value, constraintValidatorContext);
         boolean cnpjIsValid = cnpjValidator.isValid(value, constraintValidatorContext);
-
         return cnpjIsValid || cpfIsValid;
     }
 }

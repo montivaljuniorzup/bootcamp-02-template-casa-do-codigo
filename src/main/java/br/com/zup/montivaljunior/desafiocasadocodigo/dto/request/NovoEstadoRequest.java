@@ -4,6 +4,7 @@ import br.com.zup.montivaljunior.desafiocasadocodigo.model.Estado;
 import br.com.zup.montivaljunior.desafiocasadocodigo.model.Pais;
 import br.com.zup.montivaljunior.desafiocasadocodigo.validation.annotation.ExistId;
 import br.com.zup.montivaljunior.desafiocasadocodigo.validation.annotation.UniqueValue;
+import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
 import javax.validation.constraints.NotBlank;
@@ -34,9 +35,7 @@ public class NovoEstadoRequest implements Serializable {
 
     public Estado toModel(EntityManager manager) {
         Pais pais = manager.find(Pais.class, this.paisId);
-        if (pais == null) {
-            throw new IllegalArgumentException("Não foi encontrado País com o id: " + this.paisId);
-        }
+        Assert.notNull(pais, "Não foi encontrado País com o id: " + this.paisId);
         return new Estado(this.nome, pais);
     }
 

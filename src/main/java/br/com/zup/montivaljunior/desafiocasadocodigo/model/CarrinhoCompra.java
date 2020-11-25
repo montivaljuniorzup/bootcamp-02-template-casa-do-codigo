@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+
 public class CarrinhoCompra {
 
     @NotNull
@@ -36,6 +37,18 @@ public class CarrinhoCompra {
         }).count();
 
         this.total = BigDecimal.valueOf(total);
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public List<Item> getItens() {
+        return itens;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
     }
 
     @Override

@@ -14,6 +14,7 @@ public class Pais {
     private Long id;
 
     @NotBlank
+    @Column(nullable = false, unique = true)
     private String nome;
 
     @OneToMany(mappedBy = "pais")

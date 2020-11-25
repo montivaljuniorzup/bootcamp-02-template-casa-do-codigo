@@ -45,12 +45,12 @@ public class Livro {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "categoria_id")
+    @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "autor_id")
+    @JoinColumn(name = "autor_id", nullable = false)
     private Autor autor;
 
     @Deprecated

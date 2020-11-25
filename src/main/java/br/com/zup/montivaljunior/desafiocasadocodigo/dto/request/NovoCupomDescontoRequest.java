@@ -4,10 +4,7 @@ import br.com.zup.montivaljunior.desafiocasadocodigo.model.CupomDesconto;
 import br.com.zup.montivaljunior.desafiocasadocodigo.validation.annotation.UniqueValue;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -19,6 +16,7 @@ public class NovoCupomDescontoRequest implements Serializable {
 
     @Positive
     @NotNull
+    @Max(100)
     private double desconto;
 
     @Future
@@ -36,7 +34,8 @@ public class NovoCupomDescontoRequest implements Serializable {
     }
 
     public CupomDesconto paraCupom() {
-        return new CupomDesconto(this.codigo, this.desconto, this.validade);
+        double descontoEmPorcentagem = this.desconto / 100;
+        return new CupomDesconto(this.codigo, descontoEmPorcentagem, this.validade);
     }
 
     public String getCodigo() {
