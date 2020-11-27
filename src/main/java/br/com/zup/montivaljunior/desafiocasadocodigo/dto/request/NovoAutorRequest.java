@@ -21,9 +21,6 @@ public class NovoAutorRequest {
     @Size(max = 400, message = "{autor.descricao.invalido}")
     private String descricao;
 
-  //  @NotNull(message = "{autor.nome.obrigatorio}")
-    //private LocalDateTime instanteCriacao = LocalDateTime.now();
-
     /**
      * @Deprecated
      */
@@ -50,10 +47,6 @@ public class NovoAutorRequest {
     public String getDescricao() {
         return descricao;
     }
-
-  // public LocalDateTime getInstanteCriacao() {
-  //      return instanteCriacao;
-   // }
 
     public Autor paraAutor() {
         return new Autor(this.nome, this.email, this.descricao);
