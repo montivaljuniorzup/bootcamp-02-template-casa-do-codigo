@@ -18,7 +18,7 @@ import java.time.LocalDate;
 public class NovoLivroRequestTest {
 
     @MockBean
-    EntityManager manager;
+    private EntityManager manager;
 
     private NovoLivroRequest request = new NovoLivroRequest("teste3",
             "siasjdijaisjoijad",
@@ -30,9 +30,9 @@ public class NovoLivroRequestTest {
             1L,
             1L);
 
-    Autor autor = new Autor("Teste", "teste@email.com", "Autor desconhecido");
+    private Autor autor = new Autor("Teste", "teste@email.com", "Autor desconhecido");
 
-    Categoria categoria = new Categoria("Teste");
+    private Categoria categoria = new Categoria("Teste");
 
 
     @Test

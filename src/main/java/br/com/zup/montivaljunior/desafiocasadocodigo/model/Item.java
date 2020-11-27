@@ -33,12 +33,6 @@ public class Item {
         return livro != null;
     }
 
-    /**
-     *
-     * @param idLivro
-     * @param quantidade
-     */
-
     public Item(@NotNull Long idLivro, @NotNull @Positive @Min(1) int quantidade) {
         this.idLivro = idLivro;
         this.quantidade = quantidade;

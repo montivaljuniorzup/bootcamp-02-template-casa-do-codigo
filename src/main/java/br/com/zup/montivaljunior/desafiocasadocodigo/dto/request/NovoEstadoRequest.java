@@ -34,7 +34,7 @@ public class NovoEstadoRequest {
 
     public Estado toModel(EntityManager manager) {
         Pais pais = manager.find(Pais.class, this.paisId);
-        Assert.notNull(pais, "Não foi encontrado País com o id: " + this.paisId);
+        Assert.state(pais != null, "Não foi encontrado País com o id: " + this.paisId);
         return new Estado(this.nome, pais);
     }
 
